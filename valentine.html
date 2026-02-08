@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --pink: #ff4d6d;
+            --light-pink: #ffccd5;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        #gif-display {
+            width: 250px;
+            height: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--pink);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #yesBtn {
+            background-color: var(--pink);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #ff1e4d;
+        }
+
+        #noBtn {
+            background-color: #dee2e6;
+            color: #495057;
+            position: absolute;
+            left: 140px; /* Initial offset from the Yes button */
+            white-space: nowrap;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img id="gif-display" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwdW1xdzN4am9hZzJpYnZxeHlodGtjZzB4eG92eXFqbmZiaXpsdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qUIm5wu6LAAog/giphy.gif" alt="Begging Puppy">
+        
+        <h1 id="question">Will you be my Valentine?</h1>
+
+        <div class="buttons">
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const gif = document.getElementById('gif-display');
+        const question = document.getElementById('question');
+
+        // Logic to make the No button jump away
+        const moveButton = () => {
+            // Calculate random positions (keeping it within the visible window)
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            
+            // Add a little sass
+            const funnyTexts = ["Try again!", "Nope!", "You're getting close!", "Missed me!", "Wrong one!"];
+            noBtn.innerText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
